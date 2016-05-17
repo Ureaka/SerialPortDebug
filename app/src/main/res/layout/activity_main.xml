@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:layout_alignParentBottom="true"
@@ -10,10 +9,53 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <EditText
-        android:id="@+id/etOutput"
+    <TextView
+        android:id="@+id/tvChannel"
         android:layout_width="match_parent"
-        android:layout_height="452dp"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:textSize="20dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="103dp"
+        android:background="@drawable/border"
+        android:entries="@array/channel"
+        android:gravity="top"
+        android:spinnerMode="dropdown" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="108dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="0dp"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/dial"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.48"
+            android:text="Dial" />
+
+        <Button
+            android:id="@+id/halt"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.48"
+            android:text="halt" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etShow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@+id/etInput"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
@@ -26,42 +68,7 @@
         android:focusable="false"
         android:gravity="top"
         android:inputType="text|textMultiLine"
-        android:scrollIndicators="right"
-        android:height="500dp"
-        android:layout_weight="1.22" />
+        android:scrollIndicators="right" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal"
-        android:padding="0dp">
-
-        <EditText
-            android:id="@+id/etInput"
-            android:layout_width="204dp"
-            android:layout_height="fill_parent"
-            android:layout_above="@+id/btnSend"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/btnSend"
-            android:layout_toStartOf="@+id/btnSend"
-            android:layout_weight="0.80"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:text="AT+CXDCL?"
-            android:gravity="top" />
-
-        <Button
-            android:id="@+id/btnSend"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="87dp"
-            android:layout_height="fill_parent"
-            android:text="Send"
-            android:layout_weight="0.19" />
-
-    </LinearLayout>
 </LinearLayout>
 

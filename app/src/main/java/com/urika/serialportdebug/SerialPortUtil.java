@@ -7,9 +7,9 @@ import java.io.OutputStream;
 
 /**
  * 串口操作类
- *
  */
 public class SerialPortUtil {
+    private static SerialPortUtil portUtil = null;
     private String TAG = SerialPortUtil.class.getSimpleName();
     private SerialPort mSerialPort;
     private OutputStream mOutputStream;
@@ -17,18 +17,8 @@ public class SerialPortUtil {
     private ReadThread mReadThread;
     private String path = "/dev/ttyS3";
     private int baudrate = 115200;
-    private static SerialPortUtil portUtil = null;
     private OnDataReceiveListener onDataReceiveListener = null;
     private boolean isStop = false;
-
-    public interface OnDataReceiveListener {
-        public void onDataReceive(byte[] buffer, int size);
-    }
-
-    public void setOnDataReceiveListener(
-            OnDataReceiveListener dataReceiveListener) {
-        onDataReceiveListener = dataReceiveListener;
-    }
 
     //static method is still in memory even if the app destroy,
     //so there will be a error if tty closed.
@@ -38,6 +28,11 @@ public class SerialPortUtil {
             portUtil.onCreate();
         }
         return portUtil;
+    }
+
+    public void setOnDataReceiveListener(
+            OnDataReceiveListener dataReceiveListener) {
+        onDataReceiveListener = dataReceiveListener;
     }
 
     /**
@@ -101,6 +96,24 @@ public class SerialPortUtil {
         return result;
     }
 
+    /**
+     * 关闭串口
+     */
+    public void closeSerialPort() {
+        //sendShellCommond1();
+        isStop = true;
+        if (mReadThread != null) {
+            mReadThread.interrupt();
+        }
+        if (mSerialPort != null) {
+            mSerialPort.close();
+        }
+    }
+
+    public interface OnDataReceiveListener {
+        public void onDataReceive(byte[] buffer, int size);
+    }
+
     private class ReadThread extends Thread {
 
         @Override
@@ -127,20 +140,6 @@ public class SerialPortUtil {
                     return;
                 }
             }
-        }
-    }
-
-    /**
-     * 关闭串口
-     */
-    public void closeSerialPort() {
-        //sendShellCommond1();
-        isStop = true;
-        if (mReadThread != null) {
-            mReadThread.interrupt();
-        }
-        if (mSerialPort != null) {
-            mSerialPort.close();
         }
     }
 
